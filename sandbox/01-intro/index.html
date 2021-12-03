@@ -11,16 +11,19 @@
 <div id="app-1">
     {{ message }}
 </div>
+<hr>
 
 <div id="app-2">
     <span v-bind:title="message">
         Наведи на меня курсор на пару секунд, чтобы увидеть динамически связанное значение title!
     </span>
 </div>
+<hr>
 
 <div id="app-3">
     <span v-if="seen">Сейчас меня видно</span>
 </div>
+<hr>
 
 <div id="app-4">
     <ol>
@@ -29,16 +32,19 @@
         </li>
     </ol>
 </div>
+<hr>
 
 <div id="app-5">
     <p>{{ message }}</p>
     <button v-on:click="reverseMessage">Перевернуть сообщение</button>
 </div>
+<hr>
 
 <div id="app-6">
     <p>{{ message }}</p>
     <input v-model="message">
 </div>
+<hr>
 
 <div id="app-7">
     <ol>

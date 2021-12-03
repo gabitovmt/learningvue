@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Синтаксис шаблонов</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+
+<div id="app-3-1">
+    <span>Сообщение: {{ msg }}</span>
+    <span v-once>Это сообщение никогда не изменится: {{ msg }}</span>
+</div>
+<hr>
+
+<div id="app-3-2">
+    <p>Двойные фигурныескобки: {{ rawHtml }}</p>
+    <p>Директива v-html: <span v-html="rawHtml"></span></p>
+</div>
+<hr>
+
+<div id="app-3-3">
+    <div v-bind:id="dynamicId"></div>
+    <!-- Если значение isButtonDisabled будет null, undefined или false,
+         то атрибут disabled не добавится в элемент <button> -->
+    <button v-bind:disabled="isButtonDisabled">Кнопка</button>
+</div>
+<hr>
+
+<div id="app-3-4">
+    {{ number + 1 }}
+    {{ ok ? 'YES' : 'NO' }}
+    {{ message.split('').reverse().join('') }}
+    <div v-bind:id="'list-' + id"></div>
+
+    <!-- Допускается лишь одно выражение. Код ниже не будет работать -->
+    <!-- {{ var a = 1 }} -->
+    <!-- {{ if (ok) { return message} }} -->
+
+    <!-- Доступ к пользовательским глобальным переменным запрещён -->
+    <!-- {{ app3.dynamicId }} -->
+
+    <!-- Будет работать -->
+    {{ new Date() }}
+</div>
+<hr>
+
+<div id="app-3-5">
+    <a target="_blank" v-bind:href="url">Example</a>
+    <p v-on:click="doSomething">alert</p>
+</div>
+<hr>
+
+<div id="app-3-6">
+    <!-- Динамический аргумент должен быть строкой или null.
+         При использовании шаблонов в DOM (шаблонов, написанных непосредственно в HTML-файле),
+         следует избегать именования ключей заглавными буквами, посколько браузеры будут
+         приводить имена атрибутов к строчным -->
+    <a target="_blank" v-bind:[attributename]="url">Example two</a>
+
+    <!-- Символы, такие как пробелы и кавычки, являются недопустимыми внутри имён атрибутов HTML -->
+    <!-- <a v-bind:['foo' + bar]="value">Example three</a> -->
+
+    <a v-on:[eventname]="doSomething">alert</a>
+</div>
+<hr>
+
+<div id="app-3-7">
+    <!-- Модификатор prevent говорит директике v-on вызвать event.preventDefault()
+         при обработке произошедшего события -->
+    <form v-on:submit.prevent="onSubmit">
+        <input type="submit" value="Отправить">
+    </form>
+</div>
+<hr>
+
+<div id="app-3-8">
+    <!-- Полный синтаксис -->
+    <a v-bind:href="url" target="_blank">One</a>
+    <!-- Сокращённая запись -->
+    <a :href="url" target="_blank">Two</a>
+    <!-- Сокращённая запись с динамическим именем аргумента -->
+    <a :[key]="url" target="_blank">Three</a>
+
+    <!-- Полный синтаксис -->
+    <a v-on:click="doSomething">Four</a>
+    <!-- Сокращённая запись -->
+    <a @click="doSomething">Five</a>
+    <!-- Сокращённая запись с динамическим именем аргумента -->
+    <a @[event]="doSomething">Six</a>
+</div>
+
+</body>
+</html>
