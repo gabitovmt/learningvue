@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Условная отрисовка</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+
+<div id="app-6-1">
+    <h1 v-if="awesome">Vue восхитителен!</h1>
+    <h1 v-else>О, нет 😢</h1>
+</div>
+<hr>
+
+<div id="app-6-2">
+    <template v-if="ok">
+        <h1>Заголовок</h1>
+        <p>Абзац 1</p>
+        <p>Абзац 2</p>
+    </template>
+</div>
+<hr>
+
+<div id="app-6-3">
+    <div v-if="ok">Сейчас меня видно</div>
+    <div v-else>А теперь - нет</div>
+</div>
+<hr>
+
+<div id="app-6-4">
+    <div v-if="type === 'A'">A</div>
+    <div v-else-if="type === 'B'">B</div>
+    <div v-else-if="type === 'C'">C</div>
+    <div v-else>Не A/B/C</div>
+</div>
+<hr>
+
+<div id="app-6-5">
+    <!-- Vue старается управлять элементами DOM настолько эффективно, насколько это возможно,
+         зачастую переиспользуя их вместо того, чтобы создавать заново -->
+    <div>
+        <template v-if="loginType === 'username'">
+            <label>Имя пользователя</label>
+            <input placeholder="Введите имя пользователя">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Введите адрес email">
+        </template>
+    </div>
+    <!-- Иногда такое поведение нежелательно. Чтобы предотвратить это, нужно указать уникальное значение ключа key -->
+    <div>
+        <template v-if="loginType === 'username'">
+            <label>Имя пользователя</label>
+            <input placeholder="Введите имя пользователя" key="username-input">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Введите адрес email" key="email-input">
+        </template>
+    </div>
+    <div>
+        <button type="button" @click="switchLoginType">Переключить тип логина</button>
+    </div>
+</div>
+<hr>
+
+<div id="app-6-6">
+    <!-- Элемент всегда будет оставаться в DOM, изменяться будет лишь свойство display.
+         Не работает на элементе <template> и не работает с v-else -->
+    <h1 v-show="ok">Привет!</h1>
+</div>
+
+</body>
+</html>
