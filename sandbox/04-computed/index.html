@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вычисляемые свойства и слежение</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js" defer></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+
+<div id="app-4-1">
+    <p>Изначальное сообщение: "{{ message }}"</p>
+    <p>Сообщение задом наперёд: "{{ reversedMessage }}"</p>
+</div>
+<hr>
+
+<!-- Вычисляемые свойства кэшируются, основываясь на своих реактивных зависимостях -->
+<div id="app-4-2">
+    <p>Изначальное сообщение: "{{ message }}"</p>
+    <p>Сообщение задом наперёд: "{{ reverseMessage() }}"</p>
+</div>
+<hr>
+
+<div id="app-4-3">
+    {{ now }}
+</div>
+<hr>
+
+<div id="app-4-4">{{ fullName }}</div>
+<hr>
+
+<div id="app-4-5">{{ fullName }}</div>
+<hr>
+
+<div id="app-4-6">
+    <p>First name: {{ firstName }}</p>
+    <p>Last name: {{ lastName }}</p>
+    <p>Full name: {{ fullName }}</p>
+</div>
+<hr>
+
+<div id="watch-example">
+    <p>
+        Задайте вопрос, на который можно ответить "Да" или "Нет":
+        <input v-model="question">
+    </p>
+    <p>{{ answer }}</p>
+</div>
+
+</body>
+</html>
