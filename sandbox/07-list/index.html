@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отрисовка списков</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+
+<ul id="app-7-1">
+    <li v-for="item in items" :key="item.message">
+        {{ item.message }}
+    </li>
+    <li v-for="item of items" :key="`${item.message}-list-two`">
+        {{ item.message }}
+    </li>
+</ul>
+<hr>
+
+<ul id="app-7-2">
+    <li v-for="(item, index) of items">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+    </li>
+</ul>
+<hr>
+
+<ul id="app-7-3">
+    <!-- При итерировании по объекту порядок обхода такой же как и в Object.keys() -->
+    <ul><li v-for="value of object">{{ value }}</li></ul>
+    <hr>
+    <ul><li v-for="(value, name) of object">{{ name }}: {{ value }}</li></ul>
+    <hr>
+    <ul><li v-for="(value, name, index) of object">{{ index }}. {{ name }}: {{ value }}</li></ul>
+</ul>
+<hr>
+
+<ul id="app-7-4">
+    <li v-for="n of evenNumbers">{{ n }}</li>
+</ul>
+<hr>
+
+<div id="app-7-5">
+    <ul v-for="set of sets">
+        <li v-for="n of even(set)">{{ n }}</li>
+    </ul>
+</div>
+<hr>
+
+<!-- В v-for можно передать целое число. В этом случае шаблон будет повторён указанное число раз -->
+<div id="app-7-6"><span v-for="n in 10">{{ n }}</span></div>
+<hr>
+
+<ul id="app-7-7">
+   <template v-for="item in items">
+       <li>{{ item.message }}</li>
+       <li class="divider" role="presentation"></li>
+   </template>
+</ul>
+<hr>
+
+<ul id="app-7-8">
+    <li v-for="todo in todos" v-if="!todo.isCompleted">{{ todo.name }}</li>
+</ul>
+<hr>
+
+<div id="app-7-9">
+    <form @submit.prevent="addNewTodo">
+        <label for="new-todo">Добавить задачу</label>
+        <input
+            v-model="newTodoText"
+            id="new-todo"
+            placeholder="Например, покормить кота"
+        >
+        <button>Добавить</button>
+    </form>
+    <ul>
+        <!-- В версиях 2.2.0+, атрибут key на компонентах обязателен при использовании v-for -->
+        <!-- Обратите внимание на атрибут is. Это необходимо в DOM-шаблонах, потому что только элементы <li>
+             разрешены внутри <ul>. Результат будет таким же, как использование <todo-item>,
+             но позволяет обойти ошибки парсинга браузером -->
+        <li
+            is="todo-item"
+            v-for="(todo, index) of todos"
+            :key="todo.id"
+            :title="todo.title"
+            @remove="todos.splice(index, 1)"
+        ></li>
+    </ul>
+</div>
+
+</body>
+</html>
