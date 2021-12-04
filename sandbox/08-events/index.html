@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Обработка событий</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+
+<div id="app-8-1">
+    <button @click="counter++">+1</button>
+    <p>Кнопка выше была нажата {{ counter }} раз</p>
+</div>
+<hr>
+
+<div id="app-8-2">
+    <button @click="greet">Поприветствовать</button>
+</div>
+<hr>
+
+<div id="app-8-3">
+    <button @click="say('hi')">Скажи hi</button>
+    <button @click="say('what')">Скажи what</button>
+</div>
+<hr>
+
+<div id="app-8-4">
+    <!-- $event содержит оригинальное событие DOM -->
+    <button @click="warn('Форма не может быть отправлена.', $event)">Отправить</button>
+</div>
+<hr>
+
+<div id="app-8-5">
+    <div class="parent" @click="parent">
+        <!-- Событие click не будет всплывать дальше -->
+        <a @click.stop="doThis">FOO</a>
+
+        <!-- Событие submit больше не будет перезагружать страницу -->
+        <form @submit.prevent="onSubmit">
+            <button>Кнопка</button>
+        </form>
+
+        <!-- Модификаторы можно объединять в цепочки -->
+        <a @click.stop.prevent="doThat">BAR</a>
+
+        <!-- И использовать без указания метода-обработчика -->
+        <form @submit.prevent>
+            <button>Кнопка</button>
+        </form>
+
+        <!-- Можно отслеживать события в режиме capture, т.е. событие, нацеленное -->
+        <!-- на внутренний элемент, обрабатывается здесь до обработки этим элементом -->
+        <div @click.capture="doThis">
+            <a @click="doThat">BAZ</a>
+        </div>
+
+        <!-- Вызов обработчика только в случае наступления события непосредственно -->
+        <!-- на данном элементе (то есть не на дочернем компоненте) -->
+        <div @click.self="doThis">
+            <a @click="doThat">BOO</a>
+        </div>
+
+        <!-- При использовании модификаторов порядок имеет значение, потому что код генерируется в том же порядке.
+             Поэтому @click.prevent.self Будет предотвращать все клики, в то время как @click.self.prevent
+             будет предотвращать клики только на самом элементе -->
+
+        <!-- Событие click сработает только 1 раз. Добавлено в версии 2.1.4 -->
+        <a @click.once="doThis">FAX</a>
+
+        <!-- По умолчанию событие scroll (при прокрутке) произойдёт незамедлительно, вместо ожидания окончания -->
+        <!-- `onScroll` на случай, если там будет `event.preventDefault()` -->
+        <div @scroll.passive="onScroll" style="width: 100%; overflow: auto;">
+            <div style="background: red; width: 200%; height: 20px;">
+                1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+            </div>
+        </div>
+        <!-- passive полезен для повышения производительности на мобильных устройствах -->
+    </div>
+</div>
+<hr>
+
+<div id="app-8-6">
+    <!-- Вызвать `vm.submit()` только если `key` будет `Enter` -->
+    <input @keyup.enter="submit">
+
+    <!-- Допустимые имена клавиш предоставляются через KeyboardEvent.key в качестве модификаторов, -->
+    <!-- именуя их в kebab-case -->
+    <!-- Данные обработчик будет вызываться, только если $event.key = 'PageDown' -->
+    <input @keyup.page-down="onPageDown">
+</div>
+<hr>
+
+<div id="app-8-7">
+    <!-- Использование значения keyCode событий - устаревшая практика и может не поддерживаться в новых браузерах -->
+    <input @keyup.13="submit">
+
+    <!-- Доступны следующие псевдонимы:
+         .enter .tab .delete (ловит как "Delete", так и "Backspace") .esc .space .up .down .left .right -->
+    <input @keyup.delete="onDelete">
+
+    <input @keyup.f2="f2">
+</div>
+<hr>
+
+<div id="app-8-8">
+    <!-- Системные модификаторы клавиш. Добавлено в версии 2.1.0 -->
+    <!-- Доступны следующие модификаторы клавиш: .ctrl .alt .shift .meta -->
+
+    <!-- Alt + C -->
+    <input @keyup.alt.67="clear">
+
+    <!-- Ctrl + Click -->
+    <div @click.ctrl="doSomething">Сделать что-нибудь</div>
+</div>
+<hr>
+
+<div id="app-8-9">
+    <!-- Сработает, даже если Alt или Shift также нажаты -->
+    <button @click.ctrl="onClick">A</button>
+
+    <!-- Сработает, только когда нажат Ctrl и не нажаты никакие другие клавиши -->
+    <button @click.ctrl.exact="onClick">A</button>
+
+    <!-- Сработает, только когда не нажаты никакие системные модификаторы -->
+    <button @click.exact="onClick">A</button>
+</div>
+<hr>
+
+<div id="app-8-10">
+    <button @click.left="onClick">A</button>
+    <button @click.right="onClick">B</button>
+    <button @click.middle="onClick">C</button>
+</div>
+
+</body>
+</html>
