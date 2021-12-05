@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Работа с формами</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+
+<div id="app-9-1">
+    <input v-model="message" placeholder="отредактируй меня">
+    <p>Введённое сообщение: {{ message }}</p>
+    <hr>
+
+    <p>Введённое многострочное сообщение:</p>
+    <p style="white-space: pre-line;">{{ multilineMessage }}</p>
+    <br>
+    <textarea v-model="multilineMessage" placeholder="введите несколько строчек"></textarea>
+    <hr>
+
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+    <hr>
+
+    <input type="checkbox" id="jack" value="Джек" v-model="checkedNames">
+    <label for="jack">Джек</label>
+    <input type="checkbox" id="john" value="Джон" v-model="checkedNames">
+    <label for="john">Джон</label>
+    <input type="checkbox" id="mike" value="Майк" v-model="checkedNames">
+    <label for="mike">Майк</label>
+    <br>
+    <span>Отмеченные имена: {{ checkedNames }}</span>
+    <hr>
+
+    <input type="radio" id="one" value="Один" v-model="picked">
+    <label for="one">Один</label>
+    <br>
+    <input type="radio" id="two" value="Два" v-model="picked">
+    <label for="two">Два</label>
+    <br>
+    <span>Выбрано: {{ picked }}</span>
+    <hr>
+
+    <select v-model="selected">
+        <!-- Наиболее предпочтительный вариант, иначе в iOS пользователь не сможет выбрать первый элемент -->
+        <option disabled value="">Выберите один из вариантов</option>
+        <option>А</option>
+        <option>Б</option>
+        <option>В</option>
+    </select>
+    <span>Выбрано: {{ selected }}</span>
+    <hr>
+
+    <select v-model="multiSelected" multiple>
+        <option>А</option>
+        <option>Б</option>
+        <option>В</option>
+    </select>
+    <br>
+    <span>Выбрано: {{ multiSelected }}</span>
+    <hr>
+
+    <select v-model="otherSelected">
+        <option v-for="option of options" :value="option.value">
+            {{ option.text }}
+        </option>
+    </select>
+    <span>Выбрано: {{ otherSelected }}</span>
+</div>
+<hr>
+
+<div id="app-9-2">
+    <input type="checkbox" v-model="toggle" true-value="да" false-value="нет">
+    <p>Значение чекбокса: {{ toggle }}</p>
+    <hr>
+
+    <template v-for="option of options">
+        <label><input type="radio" v-model="pick" :value="option">{{ option }}</label>
+    </template>
+    <p>Значение радиокнопки: {{ pick }}</p>
+    <hr>
+
+    <select v-model="selected">
+        <option :value="{ number: 1 }">Один</option>
+        <option :value="{ number: 2 }">Два</option>
+        <option :value="{ number: 3 }">Три</option>
+    </select>
+    <br>
+    <span>Выбрано: {{ typeof selected }} {{ selected }}</span>
+</div>
+<hr>
+
+<div id="app-9-3">
+    <!-- Синхронизируется по событию "change", а не "input" -->
+    <input v-model.lazy="msg">
+    <p>{{ msg }}</p>
+    <hr>
+
+    <!-- Если значение не удаётся распарсить с помощью parseFloat(), то возвращается оригинальное значение -->
+    <input v-model.number="age" type="number">
+    <p>{{ typeof age }} {{ age }}</p>
+    <hr>
+
+    <input v-model.trim="message">
+    <p>{{ message }}</p>
+</div>
+
+</body>
+</html>
